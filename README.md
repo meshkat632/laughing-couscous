@@ -2,23 +2,23 @@
 # Java Developer Test Assignment
 The aim of this test assignment is to write a program in Java which counts top javascript libraries used
 in web pages found on Google.
-#Prerequisites
+# Prerequisites
 Please create an easily compilable project (e.g. maven/gradle/Intellij/Eclipse project).
 Please do not spend more than 3 hours on the task. We expect incomplete solutions - the task is
 designed that way.
-#Task - Web crawler
+# Task - Web crawler
 The command-line program should do the following:
 0) Read a string (search term) from standard input
 1) Get a Google result page for the search term
 2) Extract main result links from the page
 3) Download the respective pages and extract the names of javascript libraries used in them
 4) Print top 5 most used libraries to standard output
-#Bonus steps
+# Bonus steps
 - write tests or think about the approach for testing your code
 - think about / implement Java concurrency utilities to speed up certain tasks
 - think about / implement deduplication algorithms for the same Javascript libraries with different
 names
-#Notes
+# Notes
 - use whatever approach you think is the best and most efficient, you don’t need to create elaborate
 or complex parsing algorithms
 - you can skip a step if it's too hard (and mock data for the next step)
