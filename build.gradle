@@ -6,4 +6,7 @@ apply plugin: 'java'
 
 repositories { mavenCentral() }
 
-dependencies { testCompile 'junit:junit:4.8.2' }
+dependencies { 
+compile 'org.jsoup:jsoup:1.11.3'
+testCompile 'junit:junit:4.8.2' 
+}
