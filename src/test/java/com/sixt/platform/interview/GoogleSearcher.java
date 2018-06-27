@@ -5,15 +5,16 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class FunnyCrawler {
+public class GoogleSearcher {
 
   private static Pattern patternDomainName;
-  private Matcher matcher;
+  private static Matcher matcher;
   private static final String DOMAIN_NAME_PATTERN 
 	= "([a-zA-Z0-9]([a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,6}";
   static {
@@ -22,15 +23,21 @@ public class FunnyCrawler {
 	
   public static void main(String[] args) {
 
-	FunnyCrawler obj = new FunnyCrawler();
+	GoogleSearcher obj = new GoogleSearcher();
 	Set<String> result = obj.getDataFromGoogle("mario");
 	for(String temp : result){
 		System.out.println(temp);
+		Set<String> scripts = PageInspector.getJavascripts("https://"+temp);
+
+		for(String script : scripts){
+			System.out.println(script);
+		}
+
 	}
 	System.out.println(result.size());
   }
 
-  public String getDomainName(String url){
+  private static String getDomainName(String url){
 		
 	String domainName = "";
 	matcher = patternDomainName.matcher(url);
@@ -41,10 +48,10 @@ public class FunnyCrawler {
 		
   }
 	
-  private Set<String> getDataFromGoogle(String query) {
+  public static Set<String> getDataFromGoogle(String query) {
 		
 	Set<String> result = new HashSet<String>();	
-	String request = "https://www.google.com/search?q=" + query + "&num=20";
+	String request = "https://www.google.com/search?q=" + query + "&num=5";
 	System.out.println("Sending request..." + request);
 		
 	try {
@@ -60,7 +67,7 @@ public class FunnyCrawler {
 		Elements links = doc.select("a[href]");
 		for (Element link : links) {
 
-			String temp = link.attr("href");		
+			String temp = link.attr("href");
 			if(temp.startsWith("/url?q=")){
                                 //use regex to get domain name
 				result.add(getDomainName(temp));
